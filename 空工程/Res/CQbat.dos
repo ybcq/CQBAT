@@ -1,0 +1,47 @@
+::[ADD]
+%echo off
+cls
+set add1=%1
+set add2=%2
+set /a sum=add1+add2
+set msg="结果是%sum%"
+mshta vbscript:msgbox(Replace(%msg%,"\n",vbCrLf),6,"计算结果")(window.close)
+exit
+::[END]
+
+::[ADDR]
+%echo off
+set "filename=%1"
+set "showname=%2"
+set filename=%filename:__= %
+reg add "HKEY_CLASSES_ROOT\*\shell\%showname%" /ve /t REG_SZ /d "用 %showname% 打开..." /f
+reg add "HKEY_CLASSES_ROOT\*\shell\%showname%\command" /ve /t REG_SZ /d "\"%filename%\" ""%%1""" /f
+exit
+::[END]
+
+::[REMR]
+set "showname=%2"
+reg delete "HKEY_CLASSES_ROOT\*\shell\%showname%" /f
+exit
+::[END]
+
+::[SYSNOTE]
+%echo off
+set "filename=%1"
+set filename=%filename:__= %
+reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /v "Debugger" /t REG_SZ /d "\"%filename%\" /z" /f
+reg add "HKLM\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /v "Debugger" /t REG_SZ /d "\"%filename%\" /z" /f
+exit
+::[END]
+
+::[REC]
+reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /f
+reg delete "HKLM\Software\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /f
+exit
+::[END]
+
+::[ABOUT]
+set msg="             基于CQBAT框架制作 \n                Version：%1 \n%      CopyRight @御坂初琴软件屋\n                    2019-2024"
+mshta vbscript:msgbox(Replace(%msg%,"\n",vbCrLf),6,"关于文件杂耍者")(window.close)
+exit
+::[END]

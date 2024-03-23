@@ -1,0 +1,74 @@
+::[ADMIN]
+>NUL 2>&1 REG.exe query "HKU\S-1-5-19" || (
+	ECHO SET UAC = CreateObject^("Shell.Application"^) > "%TEMP%\Getadmin.vbs"
+	ECHO UAC.ShellExecute "%~f0", "%1", "", "runas", 1 >> "%TEMP%\Getadmin.vbs"
+	"%TEMP%\Getadmin.vbs"
+	DEL /f /q "%TEMP%\Getadmin.vbs" 2>NUL
+	Exit /b
+)
+::[END]
+
+::[LNK]
+set "filename=%1"
+set filename=%filename:_= %
+set "exe=%filename%"
+set "lnk=%2"
+mshta VBScript:Execute("Set a=CreateObject(""WScript.Shell""):Set b=a.CreateShortcut(a.SpecialFolders(""Desktop"") & ""\%lnk%.lnk""):b.TargetPath=""%exe%"":b.Save:close")
+exit
+::[END]
+
+::[DELLNK]
+for /f "tokens=3* delims= " %%a in ('reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" /v Desktop') do set Desktop=%%a
+del /q "%Desktop%\%1.lnk"
+exit
+::[END]
+
+::[TYPE]
+set "filename=%1"
+set filename=%filename:_= %
+set "name=%2files"
+assoc %2=%name%
+ftype %name%="%filename%" %%1
+exit
+::[END]
+
+::[DELTYPE]
+set "name=%1files"
+ftype %name%=
+echo %1
+exit
+::[END]
+
+::[FONTS]
+set "filename=%1"
+set filename=%filename:_= %
+xcopy /y iFonts.vbs "%filename%"
+start wscript "%1iFonts.vbs"
+exit
+::[END]
+
+::[FONT]
+set "filename=%1"
+set filename=%filename:_= %
+xcopy /y "%filename%" "%windir%\Fonts"
+::[END]
+
+::[DLL]
+set "filename=%1"
+set filename=%filename:_= %
+regsvr32 "%filename%"
+exit
+::[END]
+
+::[UNDLL]
+set "filename=%1"
+set filename=%filename:_= %
+regsvr32 /u "%filename%"
+exit
+::[END]
+
+::[REG]
+set "filename=%1"
+set filename=%filename:_= %
+regedit "%filename%"
+::[END]

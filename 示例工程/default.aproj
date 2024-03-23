@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project ver="10" name="文件杂耍者" libEmbed="true" icon="include\images\Fload.ico" ui="win" output="文件杂耍者.exe" CompanyName="御坂初琴软件屋" FileDescription="文件杂耍者" LegalCopyright="Copyright (C) 御坂初琴软件屋 2019" ProductName="文件杂耍者" InternalName="文件杂耍者" FileVersion="1.0.0.0" ProductVersion="1.0.0.0" publishDir="/Publish/" dstrip="false">
+	<file name="main" path="main.aardio"/>
+	<folder name="资源文件" path="res" embed="false" local="false"/>
+	<folder name="窗体" path="forms" comment="" embed="true"/>
+</project>

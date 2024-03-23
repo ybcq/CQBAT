@@ -1,0 +1,208 @@
+import win;
+import win.ui;
+/*DSG{{*/
+mainForm = win.form(text="文件杂耍者";right=499;bottom=449;image=$"\include\images\bg.jpg";border="none";max=false)
+mainForm.add(
+about={cls="button";text="关于";left=174;top=394;right=244;bottom=418;z=13};
+add1={cls="edit";text="请输入被加数";left=277;top=346;right=377;bottom=368;align="center";edge=1;multiline=1;num=1;z=5};
+add2={cls="edit";text="请输入加数";left=277;top=312;right=377;bottom=334;align="center";edge=1;multiline=1;num=1;z=6};
+addopen={cls="button";text="添加为";left=278;top=214;right=333;bottom=238;z=30};
+addr={cls="button";text="添加";left=20;top=118;right=75;bottom=142;z=10};
+apply={cls="button";text="官方网站";left=93;top=394;right=163;bottom=418;z=34};
+delr={cls="button";text="删除";left=20;top=149;right=75;bottom=173;z=12};
+disdll={cls="button";text="反注册";left=112;top=214;right=167;bottom=238;z=23};
+dll={cls="button";text="注册";left=35;top=214;right=90;bottom=238;z=22};
+dllopen={cls="button";text="删除";left=278;top=245;right=333;bottom=269;z=31};
+dnote={cls="button";text="还原默认的";left=279;top=149;right=390;bottom=173;z=19};
+enote={cls="button";text="用该文件替换";left=279;top=118;right=390;bottom=142;z=18};
+filename={cls="edit";text="可以拖入文件";left=19;top=54;right=412;bottom=76;acceptfiles=1;align="center";edge=1;z=35};
+filetype={cls="edit";text=".后缀名";left=343;top=228;right=394;bottom=250;align="center";edge=1;z=32};
+groupbox={cls="groupbox";text="隐藏文件";left=10;top=324;right=244;bottom=380;edge=1;z=9};
+groupbox2={cls="groupbox";text="加法器";left=256;top=284;right=491;bottom=380;edge=1;z=3};
+groupbox3={cls="groupbox";text="系统记事本";left=257;top=95;right=491;bottom=185;edge=1;z=17};
+groupbox4={cls="groupbox";text="注册DLL/ORC";left=11;top=191;right=245;bottom=251;edge=1;z=21};
+groupbox5={cls="groupbox";text="注册REG";left=10;top=257;right=244;bottom=317;edge=1;z=26};
+groupbox6={cls="groupbox";text="默认打开";left=257;top=191;right=491;bottom=279;edge=1;z=29};
+groupbox7={cls="groupbox";text="右键菜单";left=10;top=95;right=244;bottom=185;edge=1;z=2};
+groupbox9={cls="groupbox";text="首先打开一个文件";left=10;top=32;right=491;bottom=89;acceptfiles=1;edge=1;z=1};
+hidefile={cls="button";text="隐藏";left=35;top=346;right=90;bottom=370;z=38};
+icon={cls="button";text="打开帮助";left=11;top=394;right=81;bottom=418;z=11};
+openfile={cls="button";text="打开";left=418;top=53;right=481;bottom=77;border=1;z=7};
+reg={cls="button";text="注册";left=67;top=280;right=122;bottom=304;z=27};
+showfile={cls="button";text="显示";left=112;top=346;right=167;bottom=370;z=39};
+showname={cls="edit";text="显示名";left=100;top=132;right=191;bottom=154;align="center";edge=1;z=14};
+static={cls="static";text="文件杂耍者";left=13;top=2;right=113;bottom=30;font=LOGFONT(h=-20;name='锐字真言体免费商用');transparent=1;z=4};
+static10={cls="static";text="或";left=95;top=219;right=112;bottom=238;notify=1;transparent=1;z=25};
+static11={cls="static";text="该文件";left=127;top=285;right=168;bottom=304;notify=1;transparent=1;z=28};
+static14={cls="static";text="的打开方式";left=404;top=232;right=475;bottom=251;notify=1;transparent=1;z=33};
+static2={cls="static";text="用";left=83;top=136;right=105;bottom=155;notify=1;transparent=1;z=15};
+static3={cls="static";text="打开...";left=198;top=136;right=254;bottom=155;notify=1;transparent=1;z=16};
+static4={cls="static";text="CopyRight @御坂初琴软件屋 2019-2024";left=251;top=387;right=482;bottom=401;align="right";transparent=1;z=36};
+static5={cls="static";text="系统记事本";left=403;top=136;right=473;bottom=155;notify=1;transparent=1;z=20};
+static6={cls="static";text="此软件用于演示CQBAT功能";left=264;top=407;right=446;bottom=421;align="right";transparent=1;z=37};
+static7={cls="static";text="该文件";left=173;top=349;right=214;bottom=368;notify=1;transparent=1;z=40};
+static8={cls="static";text="该文件";left=172;top=219;right=213;bottom=238;notify=1;transparent=1;z=24};
+static9={cls="static";text="或";left=94;top=350;right=111;bottom=369;notify=1;transparent=1;z=41};
+sumbottom={cls="button";text="求和";left=394;top=311;right=471;bottom=370;font=LOGFONT(h=-29;name='楷体');z=8}
+)
+/*}}*/
+
+import process;
+//基础声明函数
+function CQbatrun(annotation, mode, value){
+    process.execute("\res\CQbat.exe", annotation + ' ' + mode + ' ' + value);
+}
+
+//加法器
+mainForm.sumbottom.oncommand = function(id,event){
+    addnum1 = string.concat(mainForm.add1.text, ' ');
+    addnum2 = string.concat(mainForm.add2.text, ' ');
+    CQbatrun('ADD', '-c', addnum1 + addnum2);
+}
+//添加右键菜单
+mainForm.addr.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        show = string.concat(mainForm.showname.text, ' ');
+        CQbatrun('ADDR', '-c', file + show);
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//删除右键菜单
+mainForm.delr.oncommand = function(id,event){
+    file = string.concat('空文件名', ' ');
+    show = string.concat(mainForm.showname.text, ' ');
+    CQbatrun('REMR', '-c', file + show);
+    mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+}
+//替换系统记事本
+mainForm.enote.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('SYSNOTE', '-c', file);
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//还原系统记事本
+mainForm.dnote.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('REC', '-c', file);
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//注册DLL
+mainForm.dll.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('DLL', '-s', file)
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//反注册DLL
+mainForm.disdll.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('UNDLL', '-s', file)
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//注册REG
+mainForm.reg.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('REG', '-s', file)
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//添加打开方式
+mainForm.addopen.oncommand = function(id,event){
+    if(mainForm.changestr()){//如果整形通过
+        typename =  string.concat(mainForm.filetype.text, ' ');
+        CQbatrun('TYPE', '-s', file + typename)
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//删除打开方式
+mainForm.dllopen.oncommand = function(id,event){
+    if(mainForm.changestr()){
+        typename =  string.concat(mainForm.filetype.text, ' ');
+        CQbatrun('DELTYPE', '-s', typename)
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//隐藏文件
+mainForm.hidefile.oncommand = function(id,event){
+	if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('HIDE', '-s', file);
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+//显示文件
+mainForm.showfile.oncommand = function(id,event){
+	    if(mainForm.changestr()){
+        file = string.concat(mainForm.filename.text, ' ');
+        CQbatrun('SHOW', '-s', file);
+        mainForm.filename.text = string.replace(mainForm.filename.text, '__', ' ')
+    }
+}
+
+//地址栏整形
+mainForm.changestr = function(){
+    if(string.find(mainForm.filename.text, '__')|| string.find(mainForm.filename.text, '(x86)') || mainForm.filename.text == "可以拖入文件" || mainForm.filename.text == ""){
+        mainForm.msgboxErr("文件路径不合规则！");
+        return 0;//整形不通过
+    }
+    else {
+        mainForm.filename.text = string.replace(mainForm.filename.text, ' ', '__');
+        return 1;//整形通过
+    }
+}
+//响应打开函数
+mainForm.openfile.oncommand = function(id,event){
+    import fsys.dlg;
+    var path = fsys.dlg.open("所有文件|*.*|", , , mainForm.hwnd);
+    if(path){
+        if (string.find(path, '__'))mainForm.msgboxErr("文件路径中含有__！");
+        else mainForm.filename.text = path;
+    }
+}
+//响应拖拽函数
+mainForm.filename.wndproc = function(hwnd, message, wParam, lParam){
+    select(message){
+    case 0x233/*_WM_DROPFILES*/{
+            path = win.getDropFile(wParam)[1];
+            if (string.find(path, '__'))mainForm.msgboxErr("文件路径中含有__！");
+            else mainForm.filename.text = path;
+        }
+    }
+}
+mainForm.groupbox9.wndproc = function(hwnd,message,wParam,lParam){
+    select(message){
+    case 0x233/*_WM_DROPFILES*/{
+            path = win.getDropFile(wParam)[1];
+            if (string.find(path, '__'))mainForm.msgboxErr("文件路径中含有__！");
+            else mainForm.filename.text = path;
+        }
+    }
+}
+//添加快捷方式
+mainForm.icon.oncommand = function(id,event){
+    process.execute("\res\help.chm")
+}
+//支持作者
+mainForm.apply.oncommand = function(id,event){
+    process.execute("http://web.zhanhi.com/vip_ybcq.html")
+}
+//关于
+mainForm.about.oncommand = function(id,event){
+    version = "1.0.0.0 ";
+    CQbatrun('ABOUT', '-t 100', version)
+}
+
+import win.ui.simpleWindow;
+win.ui.simpleWindow( mainForm );  
+
+mainForm.show() 
+win.loopMessage();
